@@ -1,3 +1,4 @@
+<?php $POSITION = ['Team leader', 'Senior team member', 'Junior team member']; ?>
 @extends('layouts.app')
 
 @section('content')
@@ -20,38 +21,35 @@
     @endif
 
 
-    <table class="table table-bordered">
+    <table class="table table-bordered align-left">
+        <thead>
         <tr>
             <th>No</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Roles</th>
+            <th>TeamName</th>
+            <th>Position</th>
             <th width="280px">Action</th>
         </tr>
+        </thead>
+        <tbody>
         @foreach ($data as $key => $user)
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    @if(!empty($user->getRoleNames()))
-                        @foreach($user->getRoleNames() as $v)
-                            <label class="badge badge-success">{{ $v }}</label>
-                        @endforeach
-                    @endif
-                </td>
+                <td>@if($user->team) {{ $user->team->name }} @else ____ @endif</td>
+                <td>@if($user->position!=null){{ $POSITION[$user->position] }} @else ____ @endif</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a> &nbsp;
                     {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                     {!! Form::close() !!}
                 </td>
             </tr>
         @endforeach
+        </tbody>
     </table>
 
-
-    {!! $data->render() !!}
+    <center>{!! $data->render() !!}</center>
 
 @endsection

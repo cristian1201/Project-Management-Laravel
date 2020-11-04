@@ -7,13 +7,32 @@
             @csrf
             <div class="row gtr-uniform gtr-50">
                 <div class="col-6 col-12-small">
-                    <input id="name" type="text" placeholder="FullName" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
-                    @error('name')
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="name" type="text" placeholder="First name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div>
+                        <div class="col-6">
+                            <input id="lastname" type="text" placeholder="Last name" class="form-control @error('name') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" autofocus>
+                            @error('lastname')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <br>
+                    <input id="email" type="email" placeholder="E-mail" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    @error('email')
                     <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
-                    <br>
+                    @enderror <br>
                     <input id="username" type="text" placeholder="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autofocus>
                     @error('username')
                     <span class="invalid-feedback" role="alert">
@@ -21,16 +40,10 @@
                         </span>
                     @enderror
                     <br>
-                    <input id="email" type="email" placeholder="E-mail" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
                 <div class="col-6 col-12-small">
-                    <input id="phoneNumber" type="text" placeholder="Phone number" class="form-control @error('phoneNumber') is-invalid @enderror" name="phoneNumber" value="{{ old('phoneNumber') }}" autofocus>
-                    @error('phoneNumber')
+                    <input id="telephone" type="text" placeholder="Phone number" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}" required autofocus>
+                    @error('telephone')
                     <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('role:admin');
+//        $this->middleware('role:user', ['only' => ['edit', 'update']]);
+    }
     public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(5);
@@ -25,7 +32,15 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        $teams = Team::pluck('name','id')->all();
+        $teams = Arr::add($teams,  "", "no team");
+        $positions = [
+            "0"=>"Team leader",
+            "1"=>"Senior team member",
+            "2"=>"Junior team member",
+            null=>"no position"
+        ];
+        return view('users.create',compact('roles', 'teams', 'positions'));
     }
 
     /**
@@ -37,10 +52,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'name' => ['required', 'string', 'max:255'],
+            'lastname' => ['nullable', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'telephone' => ['required', 'numeric'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => 'same:confirm-password',
+            'roles' => 'required',
+            'team_id' => 'nullable',
+            'position' => 'nullable'
         ]);
 
         $input = $request->all();
@@ -76,8 +96,17 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-
-        return view('users.edit',compact('user','roles','userRole'));
+        $teams = Team::pluck('name','id')->all();
+        $teams = Arr::add($teams,  "", "no team");
+        $userTeam = $user->team_id;
+        $positions = [
+            "0"=>"Team leader",
+            "1"=>"Senior team member",
+            "2"=>"Junior team member",
+            null=>"no position"
+        ];
+        $userPosition = $user->position;
+        return view('users.edit',compact('user','roles','userRole', 'teams', 'userTeam', 'positions', 'userPosition'));
     }
 
     /**
@@ -90,17 +119,22 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'name' => ['required', 'string', 'max:255'],
+            'lastname' => ['nullable', 'string', 'max:255'],
+//            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'telephone' => ['required', 'numeric'],
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'team_id' => 'nullable',
+            'position' => 'nullable'
         ]);
 
         $input = $request->all();
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = array_except($input,array('password'));
+            $input = Arr::except($input,array('password'));
         }
 
         $user = User::find($id);

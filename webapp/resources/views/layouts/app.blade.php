@@ -21,6 +21,8 @@
 
     {{--Design StyleSheet--}}
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <link href="{{ asset('assets/css/pagination.css') }}" rel="stylesheet">
+
     <script type="text/javascript">
         function MM_jumpMenu(targ,selObj,restore){ //v3.0
             eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
@@ -35,7 +37,7 @@
 
     <!-- Header -->
     <header id="header">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" style="border: none" href="{{ url('/') }}">
             <img src="{{ asset('image/logo.png') }}">
         </a>
         <nav id="nav">
@@ -50,7 +52,9 @@
                     </li>
                 @endif
             @else
+                @role('admin')
                 <li><a href="{{ route('users.index') }}">Manage Users</a></li>
+                @endrole
                 {{--<li><a href="{{ route('roles.index') }}">Manage Role</a></li>--}}
                 {{--<li><a href="{{ route('products.index') }}">Manage Product</a></li>--}}
                 <li>
@@ -58,6 +62,7 @@
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <ul>
+                        <li><a href="{{ route('home.editProfile') }}">My Profile</a></li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

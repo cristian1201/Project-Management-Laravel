@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
+    use \Illuminate\Auth\MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'lastname', 'username', 'telephone', 'team_id', 'position', 'email', 'password',
     ];
 
     /**
@@ -40,6 +41,6 @@ class User extends Authenticatable
     ];
 
     public function team() {
-        return $this->belongsTo("App\Team", 'user_id');
+        return $this->belongsTo("App\Team");
     }
 }

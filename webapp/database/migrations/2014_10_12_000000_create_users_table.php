@@ -22,11 +22,16 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('team_id')->nullable();
-            $table->boolean('is_leader')->default(false);
+            $table->string('lastname')->nullable();
+            $table->string('telephone');
+            $table->string('username');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->unsignedBigInteger('team_id')->nullable();
+            $table->string('position')->nullable(); // 0: leader, 1: senior member, 2: junior member
+
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
