@@ -21,6 +21,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function() {
 //    Route::resource('roles','RoleController');
     Route::resource('users','UserController');
+    Route::resource('teams','TeamController');
 //    Route::resource('products','ProductController');
     Route::get('editProfile/', 'HomeController@editProfile')->name('home.editProfile');
     Route::post('updateProfile/', 'HomeController@updateProfile')->name('home.updateProfile');

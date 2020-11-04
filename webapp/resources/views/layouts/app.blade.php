@@ -53,6 +53,7 @@
                 @endif
             @else
                 @role('admin')
+                <li><a href="{{ route('teams.index') }}">Manage Teams</a></li>
                 <li><a href="{{ route('users.index') }}">Manage Users</a></li>
                 @endrole
                 {{--<li><a href="{{ route('roles.index') }}">Manage Role</a></li>--}}

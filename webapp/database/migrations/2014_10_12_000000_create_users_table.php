@@ -15,7 +15,9 @@ class CreateUsersTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->double('gps_x');
+            $table->double('gps_y');
             $table->string('type');
             $table->timestamps();
         });
@@ -24,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('lastname')->nullable();
             $table->string('telephone');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
 

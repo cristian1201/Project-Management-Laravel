@@ -56,6 +56,7 @@ class UserSeeder extends Seeder
             'email'=>'user3@gmail.com',
             'password'=>bcrypt('asdf'),
             'team_id' => 2,
+            'position' => 1
         ])->assignRole([$userRole->id]);
     }
 }

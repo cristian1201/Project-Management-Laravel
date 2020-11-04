@@ -15,15 +15,21 @@ class TeamSeeder extends Seeder
         //
         Team::create([
             'name' => 'team1',
-            'type' => 'type1',
+            'type' => 'Production',
+            'gps_x' => 1.12,
+            'gps_y' => 0.123123,
         ]);
         Team::create([
             'name' => 'team2',
-            'type' => 'type1',
+            'type' => 'Production',
+            'gps_x' => 10.01,
+            'gps_y' => 10.9,
         ]);
         Team::create([
             'name' => 'team3',
-            'type' => 'type2',
+            'type' => 'Control',
+            'gps_x' => 20.0,
+            'gps_y' => 20.1,
         ]);
     }
 }
