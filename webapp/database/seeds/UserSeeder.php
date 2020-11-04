@@ -25,7 +25,27 @@ class UserSeeder extends Seeder
         $permissions = Permission::pluck('id','id')->all();
 
         $role->syncPermissions($permissions);
+//        $role->syncPermissions([1, 2, 3, 4, 5, 6, 7, 8]);
 
         $user->assignRole([$role->id]);
+        User::create([
+            'name'=>'user1',
+            'email'=>'user1@gmail.com',
+            'password'=>bcrypt('asdf'),
+            'team_id' => 1,
+            'is_leader' => true,
+        ]);
+        User::create([
+            'name'=>'user2',
+            'email'=>'user2@gmail.com',
+            'password'=>bcrypt('asdf'),
+            'team_id' => 1
+        ]);
+        User::create([
+            'name'=>'user3',
+            'email'=>'user3@gmail.com',
+            'password'=>bcrypt('asdf'),
+            'team_id' => 2
+        ]);
     }
 }
