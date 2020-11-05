@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->double('gps_x');
             $table->double('gps_y');
@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('lastname')->nullable();
             $table->string('telephone');

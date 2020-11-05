@@ -16,7 +16,7 @@ class TeamSeeder extends Seeder
         Team::create([
             'name' => 'team1',
             'type' => 'Production',
-            'gps_x' => 1.12,
+            'gps_x' => 53.381128999999990000,
             'gps_y' => 0.123123,
         ]);
         Team::create([
