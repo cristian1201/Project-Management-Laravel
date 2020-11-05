@@ -126,12 +126,11 @@ class TeamController extends Controller
 
         $team->update($input);
 
-        foreach ($team->users() as $user) {
-            $user->team_id = null;
-            $user->position = null;
+        foreach ($team->users as $user) {
+            User::find($user->id)->releaseTeam();
         }
         for ($i=0; $i<count($input['users']); $i++) {
-            if(!$input['users'][$i]) continue;
+            if($input['users'][$i]=="") continue;
             $user = User::find($input['users'][$i]);
             $user->team_id = $id;
             $user->position = $input['positions'][$i];
@@ -150,7 +149,11 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        Team::find($id)->delete();
+        $team = Team::find($id);
+        foreach ($team->users as $user) {
+            User::find($user->id)->releaseTeam();
+        }
+        $team->delete();
         return redirect()->route('teams.index')
             ->with('success', 'Team deleted successfully');
     }

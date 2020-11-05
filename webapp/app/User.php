@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function team() {
         return $this->belongsTo("App\Team");
     }
+
+    public function releaseTeam() {
+        $this->update(['team_id'=>null, 'position'=>null]);
+    }
 }
