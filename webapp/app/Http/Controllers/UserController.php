@@ -57,7 +57,7 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'telephone' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => 'same:confirm-password',
+            'password' => ['required', 'min:8', 'same:confirm-password'],
             'roles' => 'required',
             'team_id' => 'nullable',
             'position' => 'nullable'
