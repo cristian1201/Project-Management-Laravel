@@ -176,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Cornford\Googlmapper\MapperServiceProvider::class,
     ],
 
     /*
@@ -230,6 +231,8 @@ return [
 
         //GoogleMap
         'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
+
+        'Mapper'         => Cornford\Googlmapper\Facades\MapperFacade::class,
     ],
 
 ];

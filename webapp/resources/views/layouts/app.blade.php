@@ -29,6 +29,7 @@
             if (restore) selObj.selectedIndex=0;
         }
     </script>
+    @yield('header')
     <noscript><link rel="stylesheet" href="{{ asset('assets/css/noscript.css') }}" /></noscript>
 
 </head>

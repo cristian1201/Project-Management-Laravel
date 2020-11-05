@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "farhanwazir/laravelgooglemaps": "^2.3",
+        "cornford/googlmapper": "2.*",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",

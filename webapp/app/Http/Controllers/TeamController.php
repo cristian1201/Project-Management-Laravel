@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Team;
 use App\User;
+//use Cornford\Googlmapper\Mapper;
+use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -34,6 +36,7 @@ class TeamController extends Controller
         $type = [ 'Production' => 'Production', 'Trash' => 'Trash', 'Control' => 'Control'];
         $positions = ['Team leader', 'Senior team member', 'Junior team member'];
 
+        Mapper::map(53.381128999999990000, -1.470085000000040000);
         return view('teams.create', compact('users', 'type', 'positions'));
     }
 

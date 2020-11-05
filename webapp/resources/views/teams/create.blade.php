@@ -67,7 +67,11 @@
             <input type="button" class="button primary" onclick="addUserForm()" value="Add User">
             <input type="submit" class="button primary" value="Save"/>
         </div>
-
+        <div class="col-6 col-12-small">
+            <div style="width: 300px; height: 200px">
+                {!! Mapper::render() !!}
+            </div>
+        </div>
     </div>
     {!! Form::close() !!}
     <script>
