@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="row">
-        <h2>Add New User</h2>
+        <h2>Create New Team</h2>
         <div style="float: right">
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('teams.index') }}"> Back</a>
         </div>
     </div>
 
@@ -18,76 +18,73 @@
             </ul>
         </div>
     @endif
-
-    {!! Form::open(array('route' => 'users.store','method'=>'POST')) !!}
+    {!! Form::open(array('route' => 'teams.store','method'=>'POST')) !!}
     <div class="row">
-        <div class="col-3 col-6-small">
+        <div class="col-5 col-12-small">
             <div class="form-group">
                 <strong>Name:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-3 col-5-small">
-            <div class="form-group">
-                <strong>LastName:</strong>
-                {!! Form::text('lastname', null, array('placeholder' => 'LastName','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-6 col-12-small">
-            <div class="form-group">
-                <strong>Username:</strong>
-                {!! Form::text('username', null, array('placeholder' => 'username','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-6 col-12-small">
-            <div class="form-group">
-                <strong>Email:</strong>
-                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-6 col-12-small">
-            <div class="form-group">
-                <strong>Telephone:</strong>
-                {!! Form::text('telephone', null, array('placeholder' => 'Telephone','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-6 col-12-small">
-            <div class="form-group">
-                <strong>Password:</strong>
-                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-6 col-12-small">
-            <div class="form-group">
-                <strong>Confirm Password:</strong>
-                {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-6 col-12-small">
-            <div class="form-group">
-                <strong>Role:</strong>
-                {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                {!! Form::text('name', null, array('placeholder' => 'TeamName','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-3 col-6-small">
             <div class="form-group">
-                <strong>Team:</strong>
-                {!! Form::select('team_id', $teams, null, array('class' => 'form-control')) !!}
+                <strong>Type:</strong>
+                {!! Form::select('type', $type, array('class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-2 col-6-small">
+            <div class="form-group">
+                <strong>GPS_X:</strong>
+                {!! Form::number('gps_x', null, array('class' => 'form-control', 'pattern' =>"[0-9]+([\.,][0-9]+)?", 'step'=>"0.01")) !!}
+            </div>
+        </div>
+
+        <div class="col-2 col-6-small">
+            <div class="form-group">
+                <strong>GPS_Y:</strong>
+                {!! Form::number('gps_y', null, array('class' => 'form-control', 'pattern' =>"[0-9]+([\.,][0-9]+)?", 'step'=>"0.01")) !!}
+            </div>
+        </div>
+
+        <div class="col-12"><br><h4 style="text-align: left">Add Users <span style="font-size: small"> - Please click 'Add User' button to create user form. </span></h4></div>
+        <div class="col-3 col-6-small">
+            <div class="form-group">
+                <strong>New User:</strong>
+                {!! Form::select('users[]', $users, null, array('class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-3 col-6-small">
             <div class="form-group">
                 <strong>Position:</strong>
-                {!! Form::select('position', $positions, null, array('class' => 'form-control')) !!}
+                {!! Form::select('positions[]', $positions, 2, array('class' => 'form-control')) !!}
             </div>
         </div>
+        <div class="col-6"></div>
+        <div id="formEndMark"></div>
         <br/>
         <div class="col-12">
             <br/>
+            <input type="button" onclick="addUserForm()" value="Add User">
             <input type="submit" class="btn btn-primary" value="Save"/>
         </div>
 
     </div>
     {!! Form::close() !!}
-
+    <script>
+        function addUserForm() {
+            code = '        <div class="col-3 col-6-small">\n' +
+                '            <div class="form-group">\n' +
+                '                <strong>New User:</strong>\n' +
+                '{!! Form::select("users[]", $users, "", array("class" => "form-control")) !!}' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '        <div class="col-3 col-6-small">\n' +
+                '            <div class="form-group">\n' +
+                '                <strong>Position:</strong>\n' +
+                '                {!! Form::select("positions[]", $positions, 2, array("class" => "form-control")) !!}\n' +
+                '            </div>\n' +
+                '        </div><div class="col-6"></div>';
+            $('#formEndMark').before(code);
+        }
+    </script>
 @endsection

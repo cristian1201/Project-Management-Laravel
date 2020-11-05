@@ -30,9 +30,11 @@ class TeamController extends Controller
     public function create()
     {
         $users = User::pluck('name', 'id')->all();
-        $users = Arr::add($users, "", "no team");
-        $type = [ 'Production', 'Trash', 'Control'];
-        return view('teams.create', compact('users', 'type'));
+        $users = Arr::add($users, "", "not selected");
+        $type = [ 'Production' => 'Production', 'Trash' => 'Trash', 'Control' => 'Control'];
+        $positions = ['Team leader', 'Senior team member', 'Junior team member'];
+
+        return view('teams.create', compact('users', 'type', 'positions'));
     }
 
     /**
@@ -44,17 +46,24 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'string', 'max:255', 'unique'],
+            'name' => ['required', 'string', 'max:255', 'unique:teams'],
             'gps_x' => ['required', 'numeric'],
             'gps_y' => ['required', 'numeric'],
             'type' => ['required', 'string'],
-            'users' => ['required', 'array']
+            'users' => ['required', 'array'],
+            'positions' => ['required', 'array'],
         ]);
 
         $input = $request->all();
 
         $team = Team::create($input);
-        $team->users()->sync($input['users']);
+        for ($i=0; $i<count($input['users']); $i++) {
+            if(!$input['users'][$i]) continue;
+            $user = User::find($input['users'][$i]);
+            $user->team_id = $team->id;
+            $user->position = $input['positions'][$i];
+            $user->save();
+        }
 
         return redirect()->route('teams.index')
             ->with('success', 'Team created successfully');
