@@ -66,7 +66,7 @@
         <div class="col-12">
             <br/>
             <input type="button" onclick="addUserForm()" value="Add User">
-            <input type="submit" class="btn btn-primary" value="Save"/>
+            <input type="submit" class="button primary" value="Save"/>
         </div>
 
     </div>
