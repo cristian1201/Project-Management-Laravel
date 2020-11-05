@@ -127,7 +127,7 @@ class TeamController extends Controller
         $team->update($input);
 
         foreach ($team->users as $user) {
-            User::find($user->id)->releaseTeam();
+            $user->releaseTeam();
         }
         for ($i=0; $i<count($input['users']); $i++) {
             if($input['users'][$i]=="") continue;
@@ -151,7 +151,7 @@ class TeamController extends Controller
     {
         $team = Team::find($id);
         foreach ($team->users as $user) {
-            User::find($user->id)->releaseTeam();
+            $user->releaseTeam();
         }
         $team->delete();
         return redirect()->route('teams.index')
